@@ -1,0 +1,20 @@
+---
+const { title = 'Home', description = 'Fast, friendly credit help', } = Astro.props;
+---
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-full font-sans text-slate-900 antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-white text-slate-900 rounded px-3 py-2 shadow">Skip to content</a>
+    <slot />
+  </body>
+</html>

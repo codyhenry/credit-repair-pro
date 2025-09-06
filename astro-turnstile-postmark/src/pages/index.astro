@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Steps from "../components/Steps.astro";
+import Benefits from "../components/Benefits.astro";
+import IssuesGrid from "../components/IssuesGrid.astro";
+import Guarantee from "../components/Guarantee.astro";
+import Testimonials from "../components/Testimonials.astro";
+import CTASection from "../components/CTASection.astro";
+import "../styles/tailwind.css";
+---
+<BaseLayout title="Home – The Credit Repair Pro">
+  <Header />
+  <main id="main">
+    <Hero />
+
+    <!-- Sign-up form section (Turnstile + simple fields) -->
+    <section id="signup" class="py-12 sm:py-16">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">Start your free signup</h2>
+          <p class="mt-2 text-slate-600">No cost, no risk, no obligation.</p>
+          <form id="signup-form" method="POST" action="/api/subscribe" class="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <label class="block">
+              <span class="text-sm font-medium">Email</span>
+              <input name="email" type="email" required autocomplete="email" class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+            </label>
+            <label class="block">
+              <span class="text-sm font-medium">Phone (optional)</span>
+              <input name="phone" type="tel" inputmode="tel" autocomplete="tel" class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+            </label>
+            <!-- Honeypot -->
+            <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" />
+
+            <!-- Turnstile widget -->
+            <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY"></div>
+
+            <button class="w-full rounded-md bg-brand-600 px-4 py-2.5 text-white font-semibold hover:bg-brand-700">Get Started</button>
+            <p class="text-xs text-slate-500">By clicking Get Started you agree to our terms and acknowledge our privacy policy.</p>
+          </form>
+
+          <div id="signup-msg" class="mt-4 hidden rounded-md border p-3 text-sm"></div>
+        </div>
+
+        <aside class="space-y-6">
+          <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 class="font-semibold text-slate-900">What happens next?</h3>
+            <ol class="mt-3 list-decimal pl-5 text-sm text-slate-600 space-y-1">
+              <li>Confirm your email (check your inbox).</li>
+              <li>We securely pull your free credit report.</li>
+              <li>A specialist reviews your report and begins disputes.</li>
+            </ol>
+          </div>
+          <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 class="font-semibold text-slate-900">Questions?</h3>
+            <p class="mt-2 text-sm text-slate-600">Call <a class="font-medium text-slate-900" href="tel:+5555555555">(555) 555‑5555</a>.</p>
+          </div>
+        </aside>
+      </div>
+
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+      <script>
+        const form = document.querySelector<HTMLFormElement>('#signup-form');
+        const msg = document.getElementById('signup-msg');
+        if (form && msg) {
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            msg.className = 'mt-4 rounded-md border p-3 text-sm bg-slate-50 text-slate-700';
+            msg.textContent = 'Submitting…';
+            try {
+              const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+              if (res.ok) {
+                msg.className = 'mt-4 rounded-md border border-green-200 bg-green-50 p-3 text-sm text-green-800';
+                msg.textContent = 'Check your email to confirm your subscription.';
+                form.reset();
+              } else {
+                const t = await res.text();
+                msg.className = 'mt-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800';
+                msg.textContent = t || 'Something went wrong. Please try again.';
+              }
+            } catch (err) {
+              msg.className = 'mt-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800';
+              msg.textContent = 'Network error. Please try again.';
+            }
+          });
+        }
+      </script>
+    </section>
+
+    <Steps />
+    <Benefits />
+    <IssuesGrid />
+    <Guarantee />
+    <Testimonials />
+    <CTASection />
+  </main>
+</BaseLayout>

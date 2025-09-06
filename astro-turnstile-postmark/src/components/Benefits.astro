@@ -1,0 +1,23 @@
+---
+const items = [
+  { title: 'Better interest rates', desc: 'Save money on loans, credit cards, and mortgages.' },
+  { title: 'Lower insurance costs', desc: 'Enjoy lower premiums on car and homeowners insurance.' },
+  { title: 'Easier approval', desc: 'Improve odds for cards, homes, and cars.' },
+  { title: 'Peace of mind', desc: 'Access credit with less stress and more control.' },
+];
+---
+<section class="py-12 sm:py-16 bg-slate-50">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 text-center">How we can help</h2>
+    <p class="mt-2 text-center text-slate-600">We challenge unfair or inaccurate items with creditors and all three credit bureaus.</p>
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {items.map(({ title, desc }) => (
+        <div class="rounded-xl border border-slate-200 p-6 bg-white shadow-sm">
+          <div class="mb-3 h-10 w-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center">★</div>
+          <h3 class="font-semibold text-slate-900">{title}</h3>
+          <p class="mt-2 text-sm text-slate-600">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

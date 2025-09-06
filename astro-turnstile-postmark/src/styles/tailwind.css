@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Easy-to-swap brand palette via CSS variables */
+:root {
+  --brand-50: 210 100% 97%;
+  --brand-100: 210 100% 94%;
+  --brand-200: 210 100% 86%;
+  --brand-300: 210 96% 78%;
+  --brand-400: 210 92% 68%;
+  --brand-500: 210 90% 56%;
+  --brand-600: 210 85% 48%;
+  --brand-700: 210 80% 40%;
+  --brand-800: 210 75% 32%;
+  --brand-900: 210 70% 24%;
+}
+
+html { scroll-behavior: smooth; }
