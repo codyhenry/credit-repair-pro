@@ -1,9 +1,10 @@
+# .github/workflows/deploy.yml
 name: Deploy Astro to GitHub Pages
 
 on:
   push:
-    branches: [main] # ← change if your default branch isn't 'main'
-  workflow_dispatch: # ← lets you run it manually from the Actions tab
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -28,9 +29,6 @@ jobs:
           cache: npm
           cache-dependency-path: astro-turnstile-postmark/package-lock.json
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
       - name: Install deps
         working-directory: ./astro-turnstile-postmark
         run: |
@@ -42,7 +40,9 @@ jobs:
 
       - name: Build
         working-directory: ./astro-turnstile-postmark
-        run: npm run build
+        run: |
+          npm run build
+          touch dist/.nojekyll   # ensure Pages doesn't try Jekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
