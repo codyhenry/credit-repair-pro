@@ -1,7 +1,9 @@
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import { defineConfig } from "astro/config";
+import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
   integrations: [tailwind({ applyBaseStyles: true })],
-  output: 'static'
+  output: "static",
+  site: "https://codyhenry.github.io",
+  base: "/",
 });
